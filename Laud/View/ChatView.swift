@@ -14,14 +14,14 @@ class ChatView: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var chatViewModel = ChatViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         messageTextField.delegate = self
         chatViewModel.chatViewModelDelegate = self
         chatViewModel.loadMessage(answer: nil)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
@@ -63,7 +63,7 @@ class ChatView: UIViewController {
         return keyboardSize.cgRectValue.height
     }
     
-
+    
 }
 
 extension ChatView: UITableViewDelegate, UITableViewDataSource {
@@ -75,18 +75,21 @@ extension ChatView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell") as! MessageViewCell
         
-        if chatViewModel.arrayOfMessages[indexPath.row].isBot! {
-            cell.userView.isHidden = true
-            cell.botView.isHidden = false
-            cell.avatarBotImageView.image = chatViewModel.arrayOfMessages[indexPath.row].avatar!
-            cell.textMessageBotLabel.text = chatViewModel.arrayOfMessages[indexPath.row].text!
-        } else {
-            cell.userView.isHidden = false
-            cell.botView.isHidden = true
-            cell.avatarUserImageView.image = chatViewModel.arrayOfMessages[indexPath.row].avatar!
-            cell.textMessageUserLabel.text = chatViewModel.arrayOfMessages[indexPath.row].text!
+        if chatViewModel.arrayOfMessages[indexPath.row].isBot != nil {
+            
+            if chatViewModel.arrayOfMessages[indexPath.row].isBot! {
+                cell.userView.isHidden = true
+                cell.botView.isHidden = false
+                cell.avatarBotImageView.image = chatViewModel.arrayOfMessages[indexPath.row].avatar!
+                cell.textMessageBotLabel.text = chatViewModel.arrayOfMessages[indexPath.row].text!
+            } else {
+                cell.userView.isHidden = false
+                cell.botView.isHidden = true
+                cell.avatarUserImageView.image = chatViewModel.arrayOfMessages[indexPath.row].avatar!
+                cell.textMessageUserLabel.text = chatViewModel.arrayOfMessages[indexPath.row].text!
+            }
+            
         }
-        
         return cell
     }
     
