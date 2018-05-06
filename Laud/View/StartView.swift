@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class StartView: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setTableViewBackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,5 +21,17 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+extension StartView {
+    
+    func setTableViewBackground() {
+        let view = UIImageView(frame: tableView.frame)
+        view.image = #imageLiteral(resourceName: "bg")
+        view.contentMode = .scaleAspectFill
+        view.alpha = 0.6
+        tableView.backgroundView = view
+    }
+    
 }
 
